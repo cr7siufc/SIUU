@@ -65,15 +65,16 @@ function saveEntry() {
     const form = document.getElementById('entryForm');
     let entryData = {
         ticketNumber: ++currentTicketNumber,
-        // Collect all form data here
+        denialReasons: Array.from(document.getElementById('denialReasons').selectedOptions).map(option => option.value),
+        cptEntries: []
     };
-    
-    // Example: Collecting form data
-    entryData.patientAccountNumber = document.getElementById('patientAccountNumber').value;
-    // ... collect other fields similarly
 
-    // Add CPT entries data
-    entryData.cptEntries = [];
+    // Collect form data
+    ['patientAccountNumber', 'insurance', 'providerName', 'memberDOB', 'claimNumber', 'totalChargeAmount', 'totalPaidAmount', 'isDenial'].forEach(field => {
+        entryData[field] = form[field].value;
+    });
+
+    // Collect CPT entries
     const cptEntries = document.querySelectorAll('.cpt-entry');
     cptEntries.forEach(cpt => {
         let cptData = {};
@@ -92,7 +93,7 @@ function displayEntry(entry, editable) {
     document.getElementById('menu').classList.remove('active');
     const viewDiv = document.getElementById('viewEditEntry');
     viewDiv.innerHTML = `<h3>Ticket Number: ${entry.ticketNumber}</h3>`;
-    // Here you would dynamically add each field to viewDiv, making them editable or not based on 'editable'
+    // Add dynamic population of entry data here, considering if the data should be editable
     viewDiv.classList.add('active');
 }
 

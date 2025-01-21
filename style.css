@@ -42,9 +42,22 @@ button:hover {
 }
 
 .cpt-entry {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     border: 1px solid white;
     margin: 10px 0;
     padding: 10px;
+}
+
+.cpt-entry input, .cpt-entry select {
+    width: calc(50% - 20px); /* Adjusts for two items per row */
+    margin: 5px 0;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
 }
 
 /* Initially show registration screen */
