@@ -3,54 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIUU Game</title>
+    <title>SIUU - AR Notetaker</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="hd-background">
-    <div id="game-container">
-        <div id="header">
-            <div id="spinning-header">
-                <h1>SIUU</h1>
-            </div>
+<body>
+    <div id="app">
+        <div id="registration">
+            <h2>Register</h2>
+            <input type="email" id="email" placeholder="Enter your email">
+            <button onclick="register()">Register</button>
         </div>
-        <nav>
-            <button data-page="home">Home</button>
-            <button data-page="improve">Improve</button>
-            <button data-page="player-info">Player Info</button>
-            <button data-page="rewards">Rewards</button>
-        </nav>
-        <div id="content">
-            <div id="home" class="page active">
-                <button id="tapToEarn" class="circle-button">Tap to Earn</button>
-                <div id="tapAnimation" class="circle"></div>
-            </div>
-            <div id="improve" class="page">
-                <div id="attributes">
-                    <!-- Attributes will be dynamically added here -->
-                </div>
-            </div>
-            <div id="player-info" class="page">
-                <p>Username/Email: <span id="userID"></span></p>
-                <p>SIUU Points: <span id="siuuCount">0</span></p>
-            </div>
-            <div id="rewards" class="page">
-                <div class="convert-section">
-                    <h3>Convert SIUU Points to SIUU Coins</h3>
-                    <p>1 SIUU Coin = 5000 SIUU Points</p>
-                    <button id="convert">Convert</button>
-                </div>
-                <div class="referral-section">
-                    <h3>Refer Friends</h3>
-                    <p>Your Referral Link: <input type="text" id="referralLink" readonly></p>
-                    <p>Get 5000 SIUU Points per referral</p>
-                </div>
-                <div class="learning-section">
-                    <h3>Crypto Learning Clips</h3>
-                    <ul id="learningClips">
-                        <!-- Learning clips will be dynamically added here -->
-                    </ul>
-                </div>
-            </div>
+        
+        <div id="menu">
+            <h2>Welcome to SIUU - AR Notetaker</h2>
+            <button onclick="createNew()">Create a new entry</button>
+            <button onclick="findEntry()">Find an existing entry</button>
+            <button onclick="editEntry()">Edit an existing entry</button>
+        </div>
+
+        <div id="newEntry">
+            <h2>New Entry</h2>
+            <form id="entryForm">
+                <input type="text" id="patientAccountNumber" placeholder="Patient Account Number">
+                <input type="text" id="insurance" placeholder="Insurance">
+                <input type="text" id="providerName" placeholder="Provider Name">
+                <input type="date" id="memberDOB" placeholder="Member DOB">
+                <input type="text" id="claimNumber" placeholder="Claim Number">
+                <input type="number" id="totalChargeAmount" placeholder="Total Charge Amount">
+                <input type="number" id="totalPaidAmount" placeholder="Total Paid Amount">
+                <select id="isDenial">
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                </select>
+                <select id="denialReasons" multiple>
+                    <option value="Late Claim Submission">Late Claim Submission</option>
+                    <!-- Add other options here -->
+                </select>
+                <button type="button" onclick="addCPT()">Add CPT</button>
+                <div id="cptEntries"></div>
+                <button type="button" onclick="saveEntry()">Save</button>
+            </form>
+            <button onclick="backToMenu()">Back to Menu</button>
+        </div>
+        
+        <div id="viewEditEntry">
+            <h2>View/Edit Entry</h2>
+            <!-- Entry details will be displayed here -->
         </div>
     </div>
     <script src="game.js"></script>

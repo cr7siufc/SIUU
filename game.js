@@ -1,105 +1,103 @@
-let siuuCount = 0;
-let attributes = {
-    'Speed': 0, 'Shooting': 0, 'Dribbling': 0, 'Passing': 0, 'Vision': 0,
-    'Stamina': 0, 'Strength': 0, 'Defending': 0, 'Tackling': 0, 'Heading': 0
-};
+let entries = [];
+let currentTicketNumber = 0;
 
-document.addEventListener('DOMContentLoaded', (event) => {
-    document.getElementById('userID').textContent = localStorage.getItem('userID') || 'User123';
-    updateSIUUCount();
-    setupPages();
-    setupTapToEarn();
-    setupImprove();
-    setupRewards();
-});
-
-function updateSIUUCount() {
-    document.getElementById('siuuCount').textContent = siuuCount;
-}
-
-function setupPages() {
-    document.querySelectorAll('nav button').forEach(button => {
-        button.addEventListener('click', (e) => {
-            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
-            document.getElementById(e.target.dataset.page).classList.add('active');
-        });
-    });
-}
-
-function setupTapToEarn() {
-    document.getElementById('tapToEarn').addEventListener('click', () => {
-        siuuCount += 10;
-        updateSIUUCount();
-        showAnimation();
-    });
-}
-
-function showAnimation() {
-    let animation = document.getElementById('tapAnimation');
-    animation.style.opacity = 1;
-    animation.style.animation = 'none';
-    setTimeout(() => {
-        animation.style.animation = '';
-    }, 10);
-}
-
-function setupImprove() {
-    const attributesDiv = document.getElementById('attributes');
-    for (let [name, level] of Object.entries(attributes)) {
-        let attribute = document.createElement('div');
-        attribute.innerHTML = `<h4>${name}</h4><p>Level: ${level}</p><button class="upgrade">Upgrade</button>`;
-        attribute.querySelector('.upgrade').addEventListener('click', () => upgradeAttribute(name));
-        attributesDiv.appendChild(attribute);
-    }
-}
-
-function upgradeAttribute(name) {
-    if (siuuCount >= 1000) {
-        siuuCount -= 1000;
-        attributes[name]++;
-        updateSIUUCount();
-        if (attributes[name] % 5 === 0) {
-            siuuCount += 2000; // Cashback for every 5 levels
-            updateSIUUCount();
-        }
-        document.getElementById('attributes').querySelectorAll('div').forEach(div => {
-            if (div.querySelector('h4').textContent === name) {
-                div.querySelector('p').textContent = `Level: ${attributes[name]}`;
-            }
-        });
+function register() {
+    const email = document.getElementById('email').value;
+    if (email) {
+        document.getElementById('registration').classList.remove('active');
+        document.getElementById('menu').classList.add('active');
     } else {
-        alert('Not enough SIUU points to upgrade!');
+        alert('Please enter an email to register.');
     }
 }
 
-function setupRewards() {
-    document.getElementById('convert').addEventListener('click', () => {
-        let coins = Math.floor(siuuCount / 5000);
-        siuuCount %= 5000;
-        alert(`You've converted to ${coins} SIUU Coin(s)!`);
-        updateSIUUCount();
-    });
-
-    let referralLink = `https://siuu-game.com?ref=${Math.random().toString(36).substring(2, 15)}`;
-    document.getElementById('referralLink').value = referralLink;
-
-    const clips = [
-        { id: 'dQw4w9WgXcQ', title: 'Crypto Basics' },
-        { id: '3xQTJi2tqgk', title: 'Blockchain Explained' }
-    ];
-    let list = document.getElementById('learningClips');
-    clips.forEach(clip => {
-        let li = document.createElement('li');
-        li.innerHTML = `<a href="https://www.youtube.com/watch?v=${clip.id}" target="_blank">${clip.title}</a> <button class="watch" data-id="${clip.id}">Watch for 1000 SIUU Points</button>`;
-        li.querySelector('.watch').addEventListener('click', (e) => {
-            if (confirm(`Did you watch this video? ${clip.title}`)) {
-                siuuCount += 1000;
-                updateSIUUCount();
-            }
-        });
-        list.appendChild(li);
-    });
+function createNew() {
+    document.getElementById('menu').classList.remove('active');
+    document.getElementById('newEntry').classList.add('active');
 }
 
-// Store user's ID in localStorage for simplicity
-localStorage.setItem('userID', 'User123');
+function findEntry() {
+    const ticketNumber = prompt("Enter Ticket Number:");
+    const entry = entries.find(e => e.ticketNumber === ticketNumber);
+    if (entry) {
+        displayEntry(entry, false);
+    } else {
+        alert("Entry not found!");
+    }
+}
+
+function editEntry() {
+    const ticketNumber = prompt("Enter Ticket Number:");
+    const entry = entries.find(e => e.ticketNumber === ticketNumber);
+    if (entry) {
+        displayEntry(entry, true);
+    } else {
+        alert("Entry not found!");
+    }
+}
+
+function addCPT() {
+    const cptTemplate = `
+        <div class="cpt-entry">
+            <input type="text" placeholder="CPT Code">
+            <input type="number" placeholder="Billed Amount">
+            <input type="number" placeholder="Allowed Amount">
+            <input type="number" placeholder="Paid Amount">
+            <input type="number" placeholder="Copay">
+            <input type="number" placeholder="Coinsurance">
+            <input type="number" placeholder="Deductible">
+            <select>
+                <option value="Check">Check</option>
+                <option value="EFT">EFT</option>
+            </select>
+            <input type="text" placeholder="Check Number/EFT">
+            <input type="date" placeholder="Issued on">
+            <input type="date" placeholder="Check cashed Date">
+            <input type="date" placeholder="Received on">
+            <input type="date" placeholder="Processed on">
+            <input type="text" placeholder="Call Reference">
+        </div>
+    `;
+    document.getElementById('cptEntries').insertAdjacentHTML('beforeend', cptTemplate);
+}
+
+function saveEntry() {
+    const form = document.getElementById('entryForm');
+    let entryData = {
+        ticketNumber: ++currentTicketNumber,
+        // Collect all form data here
+    };
+    
+    // Example: Collecting form data
+    entryData.patientAccountNumber = document.getElementById('patientAccountNumber').value;
+    // ... collect other fields similarly
+
+    // Add CPT entries data
+    entryData.cptEntries = [];
+    const cptEntries = document.querySelectorAll('.cpt-entry');
+    cptEntries.forEach(cpt => {
+        let cptData = {};
+        cpt.querySelectorAll('input, select').forEach(input => {
+            cptData[input.placeholder || input.options[input.selectedIndex].text] = input.value;
+        });
+        entryData.cptEntries.push(cptData);
+    });
+
+    entries.push(entryData);
+    alert("Your entry is saved successfully. Refer to the generated Ticket Number: " + entryData.ticketNumber);
+    backToMenu();
+}
+
+function displayEntry(entry, editable) {
+    document.getElementById('menu').classList.remove('active');
+    const viewDiv = document.getElementById('viewEditEntry');
+    viewDiv.innerHTML = `<h3>Ticket Number: ${entry.ticketNumber}</h3>`;
+    // Here you would dynamically add each field to viewDiv, making them editable or not based on 'editable'
+    viewDiv.classList.add('active');
+}
+
+function backToMenu() {
+    document.getElementById('newEntry').classList.remove('active');
+    document.getElementById('viewEditEntry').classList.remove('active');
+    document.getElementById('menu').classList.add('active');
+}
