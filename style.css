@@ -2,17 +2,14 @@ body {
     background-color: black;
     color: white;
     font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
     margin: 0;
+    padding: 0;
 }
 
 #app {
-    text-align: center;
     width: 90%;
     max-width: 600px;
+    margin: 20px auto;
 }
 
 #registration, #menu, #newEntry, #viewEditEntry {
@@ -23,14 +20,34 @@ body {
     display: block;
 }
 
-input, select, button {
+.form-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    width: 40%;
+}
+
+.form-group input, .form-group select {
+    width: 58%; /* Adjusted for labels on left */
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+button {
     margin: 10px 0;
     padding: 10px;
     background-color: #333;
     color: white;
     border: none;
     border-radius: 5px;
-    width: calc(100% - 20px);
+    width: 100%;
 }
 
 button:hover {
@@ -55,12 +72,11 @@ button:hover {
     margin: 5px 0;
 }
 
-label {
-    display: block;
-    margin-top: 10px;
-}
-
 /* Initially show registration screen */
 #registration {
     display: block;
+}
+
+body {
+    height: auto; /* Allows scrolling if content exceeds viewport */
 }

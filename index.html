@@ -10,7 +10,10 @@
     <div id="app">
         <div id="registration">
             <h2>Register</h2>
-            <input type="email" id="email" placeholder="Enter your email">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" placeholder="Enter your email">
+            </div>
             <button onclick="register()">Register</button>
         </div>
         
@@ -24,43 +27,61 @@
         <div id="newEntry">
             <h2>New Entry</h2>
             <form id="entryForm">
-                <label for="patientAccountNumber">Patient Account Number:</label>
-                <input type="text" id="patientAccountNumber" placeholder="Patient Account Number">
-                <label for="insurance">Insurance:</label>
-                <input type="text" id="insurance" placeholder="Insurance">
-                <label for="providerName">Provider Name:</label>
-                <input type="text" id="providerName" placeholder="Provider Name">
-                <label for="memberDOB">Member DOB:</label>
-                <input type="date" id="memberDOB" placeholder="Member DOB">
-                <label for="claimNumber">Claim Number:</label>
-                <input type="text" id="claimNumber" placeholder="Claim Number">
-                <label for="totalChargeAmount">Total Charge Amount:</label>
-                <input type="number" id="totalChargeAmount" placeholder="Total Charge Amount">
-                <label for="totalPaidAmount">Total Paid Amount:</label>
-                <input type="number" id="totalPaidAmount" placeholder="Total Paid Amount">
-                <label for="isDenial">Is it a denial?</label>
-                <select id="isDenial">
-                    <option value="No">No</option>
-                    <option value="Yes">Yes</option>
-                </select>
-                <label for="denialReasons">Denial Reason:</label>
-                <select id="denialReasons" multiple>
-                    <option value="Late Claim Submission">Late Claim Submission</option>
-                    <option value="Non-Covered Services">Non-Covered Services</option>
-                    <option value="Incorrect Insurance ID">Incorrect Insurance ID</option>
-                    <option value="Coding Errors">Coding Errors</option>
-                    <option value="Lack of Medical Necessity">Lack of Medical Necessity</option>
-                    <option value="Authorization Issues">Authorization Issues</option>
-                    <option value="Duplicate Claims">Duplicate Claims</option>
-                    <option value="Patient Eligibility Issues">Patient Eligibility Issues</option>
-                    <option value="Inconsistent Data">Inconsistent Data</option>
-                    <option value="Excessive Charges">Excessive Charges</option>
-                    <option value="Bundling and Unbundling Errors">Bundling and Unbundling Errors</option>
-                    <option value="Service Already Paid">Service Already Paid</option>
-                    <option value="Incorrect Modifier Use">Incorrect Modifier Use</option>
-                    <option value="Timely Filing">Timely Filing</option>
-                    <option value="Coordination of Benefits (COB)">Coordination of Benefits (COB)</option>
-                </select>
+                <div class="form-group">
+                    <label for="patientAccountNumber">Patient Account Number:</label>
+                    <input type="text" id="patientAccountNumber" placeholder="Patient Account Number">
+                </div>
+                <div class="form-group">
+                    <label for="insurance">Insurance:</label>
+                    <input type="text" id="insurance" placeholder="Insurance">
+                </div>
+                <div class="form-group">
+                    <label for="providerName">Provider Name:</label>
+                    <input type="text" id="providerName" placeholder="Provider Name">
+                </div>
+                <div class="form-group">
+                    <label for="memberDOB">Member DOB:</label>
+                    <input type="date" id="memberDOB" placeholder="Member DOB">
+                </div>
+                <div class="form-group">
+                    <label for="claimNumber">Claim Number:</label>
+                    <input type="text" id="claimNumber" placeholder="Claim Number">
+                </div>
+                <div class="form-group">
+                    <label for="totalChargeAmount">Total Charge Amount:</label>
+                    <input type="number" id="totalChargeAmount" placeholder="Total Charge Amount">
+                </div>
+                <div class="form-group">
+                    <label for="totalPaidAmount">Total Paid Amount:</label>
+                    <input type="number" id="totalPaidAmount" placeholder="Total Paid Amount">
+                </div>
+                <div class="form-group">
+                    <label for="isDenial">Is it a denial?</label>
+                    <select id="isDenial">
+                        <option value="No">No</option>
+                        <option value="Yes">Yes</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="denialReasons">Denial Reason:</label>
+                    <select id="denialReasons" multiple>
+                        <option value="Late Claim Submission">Late Claim Submission</option>
+                        <option value="Non-Covered Services">Non-Covered Services</option>
+                        <option value="Incorrect Insurance ID">Incorrect Insurance ID</option>
+                        <option value="Coding Errors">Coding Errors</option>
+                        <option value="Lack of Medical Necessity">Lack of Medical Necessity</option>
+                        <option value="Authorization Issues">Authorization Issues</option>
+                        <option value="Duplicate Claims">Duplicate Claims</option>
+                        <option value="Patient Eligibility Issues">Patient Eligibility Issues</option>
+                        <option value="Inconsistent Data">Inconsistent Data</option>
+                        <option value="Excessive Charges">Excessive Charges</option>
+                        <option value="Bundling and Unbundling Errors">Bundling and Unbundling Errors</option>
+                        <option value="Service Already Paid">Service Already Paid</option>
+                        <option value="Incorrect Modifier Use">Incorrect Modifier Use</option>
+                        <option value="Timely Filing">Timely Filing</option>
+                        <option value="Coordination of Benefits (COB)">Coordination of Benefits (COB)</option>
+                    </select>
+                </div>
                 <button type="button" onclick="addCPT()">Add CPT</button>
                 <div id="cptEntries"></div>
                 <button type="button" onclick="saveEntry()">Save</button>
