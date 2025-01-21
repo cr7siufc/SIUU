@@ -5,21 +5,28 @@ let attributes = {
 };
 
 document.addEventListener('DOMContentLoaded', (event) => {
-    let page = window.location.pathname.split('/').pop().split('.')[0];
-    if (page === 'index') {
-        setupHome();
-    } else if (page === 'improve') {
-        setupImprove();
-    } else if (page === 'player-info') {
-        setupPlayerInfo();
-    } else if (page === 'rewards') {
-        setupRewards();
-    }
-});
-
-function setupHome() {
     document.getElementById('userID').textContent = localStorage.getItem('userID') || 'User123';
     updateSIUUCount();
+    setupPages();
+    setupTapToEarn();
+    setupImprove();
+    setupRewards();
+});
+
+function updateSIUUCount() {
+    document.getElementById('siuuCount').textContent = siuuCount;
+}
+
+function setupPages() {
+    document.querySelectorAll('nav button').forEach(button => {
+        button.addEventListener('click', (e) => {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.getElementById(e.target.dataset.page).classList.add('active');
+        });
+    });
+}
+
+function setupTapToEarn() {
     document.getElementById('tapToEarn').addEventListener('click', () => {
         siuuCount += 10;
         updateSIUUCount();
@@ -65,11 +72,6 @@ function upgradeAttribute(name) {
     }
 }
 
-function setupPlayerInfo() {
-    document.getElementById('userID').textContent = localStorage.getItem('userID') || 'User123';
-    updateSIUUCount();
-}
-
 function setupRewards() {
     document.getElementById('convert').addEventListener('click', () => {
         let coins = Math.floor(siuuCount / 5000);
@@ -97,10 +99,6 @@ function setupRewards() {
         });
         list.appendChild(li);
     });
-}
-
-function updateSIUUCount() {
-    document.getElementById('siuuCount').textContent = siuuCount;
 }
 
 // Store user's ID in localStorage for simplicity

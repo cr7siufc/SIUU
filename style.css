@@ -50,18 +50,19 @@ nav {
     margin: 20px 0;
 }
 
-nav a {
+nav button {
     background-color: #4CAF50;
+    border: none;
     color: white;
     padding: 10px 20px;
     margin: 0 5px;
     font-size: 16px;
-    text-decoration: none;
+    cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s;
 }
 
-nav a:hover {
+nav button:hover {
     background-color: #45a049;
 }
 
@@ -73,6 +74,14 @@ nav a:hover {
     padding: 20px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
     text-align: center;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
 }
 
 .circle-button {
