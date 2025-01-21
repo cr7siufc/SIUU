@@ -8,15 +8,49 @@
 </head>
 <body>
     <div id="game-container">
-        <h1>SIUU</h1>
-        <div id="stats">
-            <p>SIUU: <span id="siuuCount">0</span></p>
-            <p>Next Farm in: <span id="timer">0</span>s</p>
+        <div id="header">
+            <div id="spinning-header">
+                <h1>SIUU</h1>
+            </div>
         </div>
-        <button id="farmButton">Farm SIUU</button>
-        <div id="slutMachine">
-            <button id="spinButton">Spin the Slut Machine</button>
-            <div id="jackpotResult"></div>
+        <nav>
+            <button data-page="home">Home</button>
+            <button data-page="improve">Improve</button>
+            <button data-page="player-info">Player Info</button>
+            <button data-page="rewards">Rewards</button>
+        </nav>
+        <div id="content">
+            <div id="home" class="page active">
+                <button id="tapToEarn">Tap to Earn</button>
+                <div id="tapAnimation"></div>
+            </div>
+            <div id="improve" class="page">
+                <div id="attributes">
+                    <!-- Attributes will be dynamically added here -->
+                </div>
+            </div>
+            <div id="player-info" class="page">
+                <p>Username/Email: <span id="userID"></span></p>
+                <p>SIUU Points: <span id="siuuCount">0</span></p>
+            </div>
+            <div id="rewards" class="page">
+                <div class="convert-section">
+                    <h3>Convert SIUU Points to SIUU Coins</h3>
+                    <p>1 SIUU Coin = 5000 SIUU Points</p>
+                    <button id="convert">Convert</button>
+                </div>
+                <div class="referral-section">
+                    <h3>Refer Friends</h3>
+                    <p>Your Referral Link: <input type="text" id="referralLink" readonly></p>
+                    <p>Get 5000 SIUU Points per referral</p>
+                </div>
+                <div class="learning-section">
+                    <h3>Crypto Learning Clips</h3>
+                    <ul id="learningClips">
+                        <!-- Learning clips will be added here -->
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
     <script src="game.js"></script>
