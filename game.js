@@ -93,7 +93,34 @@ function displayEntry(entry, editable) {
     document.getElementById('menu').classList.remove('active');
     const viewDiv = document.getElementById('viewEditEntry');
     viewDiv.innerHTML = `<h3>Ticket Number: ${entry.ticketNumber}</h3>`;
-    // Add dynamic population of entry data here, considering if the data should be editable
+    
+    // Dynamically populate the form with entry data
+    let html = '';
+    for (let key in entry) {
+        if (key === 'cptEntries') {
+            html += '<h4>CPT Entries:</h4>';
+            entry[key].forEach(cpt => {
+                html += '<div class="cpt-entry">';
+                for (let cptKey in cpt) {
+                    html += `<p>${cptKey}: ${cpt[cptKey]}</p>`;
+                }
+                html += '</div>';
+            });
+        } else if (key !== 'ticketNumber') {
+            html += `<p>${key}: ${entry[key]}</p>`;
+        }
+    }
+    
+    viewDiv.innerHTML += html;
+
+    if (editable) {
+        // Here you would add logic to make fields editable for editing
+    } else {
+        // Make all elements read-only or disabled if not editable
+        viewDiv.querySelectorAll('input, select').forEach(el => {
+            el.disabled = true;
+        });
+    }
     viewDiv.classList.add('active');
 }
 

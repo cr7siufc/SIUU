@@ -51,7 +51,7 @@ button:hover {
 }
 
 .cpt-entry input, .cpt-entry select {
-    width: calc(50% - 20px); /* Adjusts for two items per row */
+    width: calc(33% - 10px); /* Adjusts for three items per row */
     margin: 5px 0;
 }
 
