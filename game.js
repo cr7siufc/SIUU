@@ -1,34 +1,25 @@
 let siuuCount = 0;
 let attributes = {
-    'Speed': 0, 'Shooting': 0, 'Dribbling': 0, 'Passing': 0, 'Tackling': 0,
-    'Heading': 0, 'Stamina': 0, 'Strength': 0, 'Defending': 0, 'Vision': 0
+    'Speed': 0, 'Shooting': 0, 'Dribbling': 0, 'Passing': 0, 'Vision': 0,
+    'Stamina': 0, 'Strength': 0, 'Defending': 0, 'Tackling': 0, 'Heading': 0
 };
 
 document.addEventListener('DOMContentLoaded', (event) => {
-    // Fetch user's email or Telegram username (simulated here)
-    document.getElementById('userID').textContent = localStorage.getItem('userID') || 'User123';
-    updateSIUUCount();
-    setupPages();
-    setupTapToEarn();
-    setupImprove();
-    setupRewards();
-    setupLearningClips();
+    let page = window.location.pathname.split('/').pop().split('.')[0];
+    if (page === 'index') {
+        setupHome();
+    } else if (page === 'improve') {
+        setupImprove();
+    } else if (page === 'player-info') {
+        setupPlayerInfo();
+    } else if (page === 'rewards') {
+        setupRewards();
+    }
 });
 
-function updateSIUUCount() {
-    document.getElementById('siuuCount').textContent = siuuCount;
-}
-
-function setupPages() {
-    document.querySelectorAll('nav button').forEach(button => {
-        button.addEventListener('click', (e) => {
-            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
-            document.getElementById(e.target.dataset.page).classList.add('active');
-        });
-    });
-}
-
-function setupTapToEarn() {
+function setupHome() {
+    document.getElementById('userID').textContent = localStorage.getItem('userID') || 'User123';
+    updateSIUUCount();
     document.getElementById('tapToEarn').addEventListener('click', () => {
         siuuCount += 10;
         updateSIUUCount();
@@ -74,6 +65,11 @@ function upgradeAttribute(name) {
     }
 }
 
+function setupPlayerInfo() {
+    document.getElementById('userID').textContent = localStorage.getItem('userID') || 'User123';
+    updateSIUUCount();
+}
+
 function setupRewards() {
     document.getElementById('convert').addEventListener('click', () => {
         let coins = Math.floor(siuuCount / 5000);
@@ -84,9 +80,7 @@ function setupRewards() {
 
     let referralLink = `https://siuu-game.com?ref=${Math.random().toString(36).substring(2, 15)}`;
     document.getElementById('referralLink').value = referralLink;
-}
 
-function setupLearningClips() {
     const clips = [
         { id: 'dQw4w9WgXcQ', title: 'Crypto Basics' },
         { id: '3xQTJi2tqgk', title: 'Blockchain Explained' }
@@ -105,7 +99,9 @@ function setupLearningClips() {
     });
 }
 
+function updateSIUUCount() {
+    document.getElementById('siuuCount').textContent = siuuCount;
+}
+
 // Store user's ID in localStorage for simplicity
 localStorage.setItem('userID', 'User123');
-
-// Note: For actual implementation, you'd need to handle real user identification securely.
